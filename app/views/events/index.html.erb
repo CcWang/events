@@ -1,0 +1,72 @@
+<h1>Events</h1>
+<form action='/users/<%=current_user.id%>' method='post'>
+    <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+    <input type='submit' value='Edit My Profile'>
+</form>
+<%@events.each do |e|%>
+  <%if current_user.events.exclude?(e)%>
+    <%if e.state == current_user.state%>
+    <table>
+    <h1>Here are some of the events at your state:</h1>
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Host</td>
+          <td>Location</td>
+          <td>State</td>
+          <td>Date</td>
+          <td>Action</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%=e.name%></td>
+          <td><%=e.user.first_name%></td>
+          <td><%=e.location%></td>
+          <td><%=e.state%></td>
+          <td><%=e.event_date%></td>
+          <td><a href="">Join</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <%else%>
+   <table>
+    <h1>Here are some of the events on other state:</h1>
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Host</td>
+          <td>Location</td>
+          <td>State</td>
+          <td>Date</td>
+          <td>Action</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%=e.name%></td>
+          <td><%=e.user.first_name%></td>
+          <td><%=e.location%></td>
+          <td><%=e.state%></td>
+          <td><%=e.event_date%></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    
+    <%end%>
+  <%end%>
+<%end%>
+<h1>Add Event</h1>
+<form action="/events/create" method="post">
+  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+  <p>Name:
+  <input type="text" name="name"><br></p>
+  <p>Date:
+  <input type="date" name="event_date"><br></p>
+  <p>Loaction:
+  <input type="text" name="location">
+  State:
+  <input type="text" name="state"><br></p>
+  <input type="submit" value="Add Event">
+</form>
